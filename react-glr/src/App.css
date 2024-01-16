@@ -1,0 +1,83 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
+.navbar {
+  background-color: #691515;
+  display: flex;
+  justify-content: space-between;
+  height: 63px;
+}
+
+.navbar h1 {
+  margin: 0 10px;
+  padding: 15px 0px;
+  color: white;
+  font-size: 25px;
+}
+
+.buttons {
+  display: flex;
+  width: 150px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
+}
+
+.nav-btn {
+  color: white;
+  text-decoration: none;
+}
+
+.sign-in,
+.signup {
+  margin: auto;
+  padding-top: 150px;
+  width: 100%;
+  flex-grow: 1;
+  background-color: lightblue;
+}
+
+.sign-in h2,
+.signup h2 {
+  text-align: center;
+}
+
+.sign-in form,
+.signup form {
+  width: 400px;
+  margin: 0 auto;
+  border-radius: 6px;
+}
+
+.form-group {
+  display: block;
+  margin: auto;
+  padding: 10px 0;
+}
+
+.form-input {
+  display: block;
+  width: 90%;
+  margin: auto;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  font-size: 17px;
+}
+
+.form-btn {
+  display: block;
+  margin: auto;
+  width: 100px;
+  height: 30px;
+  background-color: #691515;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  border: 2px solid white;
+  border-radius: 3px;
+  cursor: pointer;
+}
