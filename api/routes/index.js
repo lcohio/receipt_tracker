@@ -7,10 +7,14 @@ router.get('/', (req, res) => {
     res.send('Root Route');
 });
 
-router.get('/users', (req, res) => {
-    res.send('users route');
-    console.log('users route');
-});
+router.get('/users', asyncHandler(async (req, res) => {
+    try {
+        const allUsers = await User.findAll();
+        res.status(200).json(allUsers);
+    } catch (err) {
+        console.error(err);
+    }
+}));
 
 router.post('/users', asyncHandler(async (req, res) => {
     try {
