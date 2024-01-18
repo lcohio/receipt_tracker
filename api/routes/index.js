@@ -2,26 +2,22 @@ const express = require('express');
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 router.get('/', (req, res) => {
     res.send('Root Route');
 });
 
-router.get('/users', asyncHandler(async (req, res) => {
+router.post('/users/newuser', asyncHandler(async (req, res) => {
     try {
-        const allUsers = await User.findAll();
-        res.status(200).json(allUsers);
-    } catch (err) {
-        console.error(err);
-    }
-}));
-
-router.post('/users', asyncHandler(async (req, res) => {
-    try {
+        const hashedPass = await bcrypt.hash(req.body.password, saltRounds);
+        req.body.password = hashedPass;
+        console.log(req.body);
         const newUser = await User.create(req.body);
         res.status(201).json(newUser);
     } catch (err) {
-        console.error(err);
+        res.status(400).json(err);
     }
 }));
 

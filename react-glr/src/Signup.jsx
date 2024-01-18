@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+
 
 const Signup = () => {
   const [newUserProps, setNewUserProps] = useState({ fullName: '', email: '', password: '', verifyPassword: '' });
 
   const checkUser = async (e) => {
     e.preventDefault();
-    if (newUserProps.password === newUserProps.verifyPassword) {
-      console.log('Passwords match');
-    } else {
-      console.log("Passwords don't match");
-    }
     try {
-      //const tryNewUser = await axios.post({ newUserProps });
-      //console.log({...newUserProps});
+      await axios.post('http://localhost:5000/users/newuser', {
+        fullName: newUserProps.fullName,
+        email: newUserProps.email,
+        password: newUserProps.password
+      }).then(() => window.location.pathname = '/expenses')
+      .catch(err => console.error(err));
     } catch (err) {
       console.error(err);
     }
@@ -35,7 +36,10 @@ const Signup = () => {
         <div className="form-group">
           <input onChange={(e) => setNewUserProps({...newUserProps, verifyPassword: e.target.value})} type='password' placeholder='Verify Password' className='form-input' required />
         </div>
-        <button type="submit" className="form-btn">Sign Up</button>
+        { newUserProps.password === newUserProps.verifyPassword ?
+          <button type="submit" className="form-btn">Sign Up</button>
+          : <p className='pass-validate'>Passwords Must Match!</p>
+        }
       </form>
     </div>
   )

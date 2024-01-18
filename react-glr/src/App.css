@@ -81,3 +81,10 @@
   border-radius: 3px;
   cursor: pointer;
 }
+
+.pass-validate {
+  text-align: center;
+  color: red;
+  font-weight: 600;
+  font-size: 20px;
+}
