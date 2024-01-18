@@ -1,21 +1,20 @@
 import { React, useState } from 'react';
+import { useAuth } from './context/AuthProvider';
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
+  const auth = useAuth();
 
-  const submitCredentials = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      console.log('Button Clicked');
-    } catch (err) {
-      console.error('Error issue');
-    }
+    auth.loginAction(user);
+    return;
   }
 
   return (
     <div className="sign-in">
       <h2>Sign In</h2>
-        <form onSubmit={submitCredentials}>
+        <form onSubmit={handleSubmit}>
             <div className="form-group">
               <input onChange ={(e) => setUser({ ...user, email: e.target.value })} type="email" className="form-input" placeholder='Email Address'/>
             </div>
