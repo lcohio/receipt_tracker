@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
             if(res.data) {
                 localStorage.setItem('user', res.data.fullName);
                 setUser(res.data.fullName);
-                navigate("/expenses");
+                navigate('/expenses');
                 return;
             }
             throw new Error(res.message);
