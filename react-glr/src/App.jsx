@@ -7,6 +7,7 @@ import Expenses from './Expenses';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import AuthProvider from './context/AuthProvider';
+import CreateExpense from './CreateExpense';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path='/signup' element={<Signup />} />
             <Route element={<PrivateRoute />}>
               <Route path='/expenses' element={<Expenses />}></Route>
+              <Route path='/expenses/create' element={<CreateExpense />}></Route>
             </Route>
           </Routes>
         </AuthProvider>

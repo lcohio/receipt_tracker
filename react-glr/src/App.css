@@ -88,3 +88,27 @@
   font-weight: 600;
   font-size: 20px;
 }
+
+.expenses {
+  margin: auto;
+  width: 100%;
+  flex-grow: 1;
+  background-color: lightblue;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.tile {
+  background-color: #691515;
+  margin: 30px;
+  width: 80%;
+  height: 150px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

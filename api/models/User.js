@@ -21,4 +21,11 @@ User.init({
     modelName: 'user'
 });
 
+User.associate = (models) => {
+    User.hasMany(models.Expense, {
+        foreignKey: 'userId',
+        allowNull: false
+    });   
+}
+
 module.exports = User;
