@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
+const Expense = require('../models/Expense');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -37,5 +38,42 @@ router.post('/users/newuser', asyncHandler(async (req, res) => {
         res.status(400).json(err);
     }
 }));
+
+router.post('/expense/create', asyncHandler(async (req, res) => {
+    try {
+        const newExpenseData = req.body;
+        const newExpense = await Expense.create(newExpenseData);
+        res.status(201).json(newExpense);
+    } catch (err) {
+        res.status(400).json({ error: 'User Credentials Invalid', err });
+    }
+}));
+
+router.post('/expenses', asyncHandler(async (req, res) => {
+    const expenses = await Expense.findAll({
+        where: {
+            ownerId: req.body.ownerId
+        }
+    });
+    console.log(expenses);
+    res.status(200).json(expenses);
+}));
+
+router.patch('/expenses/:id', asyncHandler(async (req, res) => {
+    try {
+        const [expense] = await Expense.findAll({
+            where: {
+                id: req.params.id
+            }
+        });
+        console.log(expense);
+    } catch (err) {
+
+    }
+}));
+
+router.delete('/expenses/:id', (req, res) => {
+
+});
 
 module.exports = router;

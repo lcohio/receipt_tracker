@@ -2,6 +2,7 @@ import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
+
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -13,8 +14,9 @@ const AuthProvider = ({ children }) => {
             const res = await axios.post('http://localhost:5000/users', data)
             console.log(res.data);
             if(res.data) {
+                localStorage.setItem('id', res.data.id);
                 localStorage.setItem('user', res.data.fullName);
-                setUser(res.data.fullName);
+                setUser(res.data);
                 navigate('/expenses');
                 return;
             }

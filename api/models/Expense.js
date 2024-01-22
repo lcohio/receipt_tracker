@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../database');
+const User = require('./User');
 
 class Expense extends Model {}
 
@@ -19,6 +20,10 @@ Expense.init({
     amount: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    ownerId: {   
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, { sequelize,
      modelName: 'expense'
@@ -26,7 +31,6 @@ Expense.init({
 
 Expense.associate = (models) => {
     Expense.belongsTo(models.User, {
-        foreignKey: 'userId',
         allowNull: false
     });
 }

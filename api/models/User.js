@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../database');
+const Expense = require('./Expense');
 
 class User extends Model {}
 
@@ -15,17 +16,17 @@ User.init({
     password: {
         type: DataTypes.STRING,
         allowNull: false
-    }
+    },
 }, {
     sequelize,
     modelName: 'user'
 });
 
-User.associate = (models) => {
-    User.hasMany(models.Expense, {
+User.associate = () => {
+    User.hasMany(Expense, {
         foreignKey: 'userId',
         allowNull: false
-    });   
+    });  
 }
 
 module.exports = User;
