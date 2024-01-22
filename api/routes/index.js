@@ -50,13 +50,16 @@ router.post('/expense/create', asyncHandler(async (req, res) => {
 }));
 
 router.post('/expenses', asyncHandler(async (req, res) => {
-    const expenses = await Expense.findAll({
-        where: {
-            ownerId: req.body.ownerId
-        }
-    });
-    console.log(expenses);
-    res.status(200).json(expenses);
+    try {
+        const expenses = await Expense.findAll({
+            where: {
+                ownerId: req.body.ownerId
+            }
+        });
+        res.status(200).json(expenses);
+    } catch (err) {
+        console.error(err);
+    }
 }));
 
 router.patch('/expenses/:id', asyncHandler(async (req, res) => {
