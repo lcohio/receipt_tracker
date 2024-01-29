@@ -5,6 +5,7 @@ const User = require('../models/User');
 const Expense = require('../models/Expense');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const AuthenticateUser = require('../middleware/AuthenticateUser');
 
 router.get('/', (req, res) => {
     res.send('Root Route');
@@ -27,7 +28,7 @@ router.post('/users', asyncHandler(async (req, res) => {
     }
 }));
 
-router.post('/users/newuser', asyncHandler(async (req, res) => {
+router.post('/users/newuser', AuthenticateUser, asyncHandler(async (req, res) => {
     try {
         const hashedPass = await bcrypt.hash(req.body.password, saltRounds);
         req.body.password = hashedPass;
