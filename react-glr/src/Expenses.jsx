@@ -1,17 +1,29 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
+
 
 const Expenses = () => {
     const [data, setData] = useState([]);
+    const token = Cookies.get('token');
+    const authAxios = axios.create({
+        baseURL: 'http://localhost:5000',
+        headers: {
+            authorization: `${token}`
+        }
+    });
 
     useEffect(() => {
         async function fetch () {
-            await axios.post('http://localhost:5000/expenses', { ownerId: localStorage.id })
+            const ownerId = Cookies.get('ownerId');
+            await authAxios.post('/expenses', { ownerId: ownerId })
             .then(res => setData(res.data))
             .catch(err => console.error(err));
         }
         fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
  
     return (

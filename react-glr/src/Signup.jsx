@@ -8,7 +8,7 @@ const Signup = () => {
   const checkUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/users/newuser', {
+      await axios.post('http://localhost:5000/users/create', {
         fullName: newUserProps.fullName,
         email: newUserProps.email,
         password: newUserProps.password

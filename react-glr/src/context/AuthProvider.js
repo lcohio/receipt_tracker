@@ -12,10 +12,9 @@ const AuthProvider = ({ children }) => {
     const loginAction = async (data) => {
         try {
             const res = await axios.post('http://localhost:5000/users', data)
-            console.log(res.data);
             if(res.data) {
-                localStorage.setItem('id', res.data.id);
-                localStorage.setItem('user', res.data.fullName);
+                document.cookie = `token=${res.data.token}`;
+                document.cookie = `ownerId=${res.data.user.id}`;
                 setUser(res.data);
                 navigate('/expenses');
                 return;
