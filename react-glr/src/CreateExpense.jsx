@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 const CreateExpense = () => {
-    const [newExpenseProps, setNewExpenseProps] = useState({ vendor: '', description: '', location: '', amount: '', ownerId: '' });
+    const [newExpenseProps, setNewExpenseProps] = useState({ vendor: '', description: '', location: '', amount: '' });
     const navigate = useNavigate();
-
+    const encoded = Cookies.get('09fe6784ce100');
+    const authAxios = axios.create({
+        baseURL: 'http://localhost:5000/api',
+        headers: {
+            authorization: `Basic ${encoded}`
+        }
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const payload = {
-                ...newExpenseProps,
-                ownerId: localStorage.id
-            };   
-            await axios.post('http://localhost:5000/expense/create', payload)
-            .then(data => console.log(data));
+            await authAxios.post('/expense/create', newExpenseProps)
+            .then(res => console.log(res.data));
             navigate('/expenses');
         } catch (err) {
             console.log(err);

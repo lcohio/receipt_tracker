@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -7,18 +7,17 @@ import Cookies from 'js-cookie';
 
 const Expenses = () => {
     const [data, setData] = useState([]);
-    const token = Cookies.get('token');
+    const encoded = Cookies.get('09fe6784ce100');
     const authAxios = axios.create({
-        baseURL: 'http://localhost:5000',
+        baseURL: 'http://localhost:5000/api',
         headers: {
-            authorization: `${token}`
+            authorization: `Basic ${encoded}`
         }
     });
 
     useEffect(() => {
         async function fetch () {
-            const ownerId = Cookies.get('ownerId');
-            await authAxios.post('/expenses', { ownerId: ownerId })
+            await authAxios.post('/expenses')
             .then(res => setData(res.data))
             .catch(err => console.error(err));
         }

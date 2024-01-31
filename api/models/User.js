@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../database');
-const Expense = require('./Expense');
 
 class User extends Model {}
 
@@ -11,7 +10,10 @@ User.init({
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: {
+            msg: 'The email you entered already exists.'
+        },
     },
     password: {
         type: DataTypes.STRING,
@@ -21,12 +23,5 @@ User.init({
     sequelize,
     modelName: 'user'
 });
-
-User.associate = () => {
-    User.hasMany(Expense, {
-        foreignKey: 'userId',
-        allowNull: false
-    });  
-}
 
 module.exports = User;

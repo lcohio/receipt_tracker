@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useAuth } from './context/AuthProvider';
 
 
 const Signup = () => {
-  const [newUserProps, setNewUserProps] = useState({ fullName: '', email: '', password: '', verifyPassword: '' });
+  const [newUserProps, setNewUserProps] = useState({ fullName: '', email: '', password: '' });
+  const [verify, setVerify] = useState({ verifyPassword: ''});
+  const auth = useAuth();
 
-  const checkUser = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:5000/users/create', {
-        fullName: newUserProps.fullName,
-        email: newUserProps.email,
-        password: newUserProps.password
-      }).then(() => window.location.pathname = '/expenses')
-      .catch(err => console.error(err));
-    } catch (err) {
-      console.error(err);
-    }
+    auth.signupAction(newUserProps);
+    return;
   }
 
   return (
     <div className="signup">
       <h2>Sign Up</h2>
-      <form onSubmit={checkUser}>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input onChange={(e) => setNewUserProps({...newUserProps, fullName: e.target.value})} type='text' placeholder='Name' className='form-input' required />
         </div>
@@ -33,9 +27,9 @@ const Signup = () => {
           <input onChange={(e) => setNewUserProps({...newUserProps, password: e.target.value})} type='password' placeholder='Password' className='form-input' required />
         </div>
         <div className="form-group">
-          <input onChange={(e) => setNewUserProps({...newUserProps, verifyPassword: e.target.value})} type='password' placeholder='Verify Password' className='form-input' required />
+          <input onChange={(e) => setVerify({verifyPassword: e.target.value})} type='password' placeholder='Verify Password' className='form-input' required />
         </div>
-        { newUserProps.password === newUserProps.verifyPassword ?
+        { newUserProps.password === verify.verifyPassword ?
           <button type="submit" className="form-btn">Sign Up</button>
           : <p className='pass-validate'>Passwords Must Match!</p>
         }

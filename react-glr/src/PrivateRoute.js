@@ -1,8 +1,10 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const PrivateRoute = () => {
-    if (!localStorage.authUser) return <Navigate to='/' />
+    const authenticatedUser = Cookies.get('authUser');
+    if (!authenticatedUser) return <Navigate to='/' />
     return <Outlet />;
 }
 

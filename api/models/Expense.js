@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../database');
-const User = require('./User');
 
 class Expense extends Model {}
 
@@ -28,11 +27,5 @@ Expense.init({
 }, { sequelize,
      modelName: 'expense'
 });
-
-Expense.associate = (models) => {
-    Expense.belongsTo(models.User, {
-        allowNull: false
-    });
-}
 
 module.exports = Expense;

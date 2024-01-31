@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from './context/AuthProvider';
+import Cookies from 'js-cookie';
 
 const Navbar = () => {
   const auth = useAuth();
@@ -9,12 +10,14 @@ const Navbar = () => {
     auth.logout();
   }
 
+  const authenticatedUser = Cookies.get('authUser');
+
   return (
     <div className="navbar">
       <h1>GLR, Inc</h1>
-        { localStorage.authUser ?
+        { authenticatedUser ?
           <div className="buttons">
-            <p className='nav-welcome'>Welcome, {localStorage.authUser}!</p>
+            <p className='nav-welcome'>Welcome, {authenticatedUser}!</p>
             <a onClick={handleLogout} className='nav-btn'>Logout</a>
           </div>
           :
