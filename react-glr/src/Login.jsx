@@ -16,10 +16,10 @@ const Login = () => {
       <h2>Sign In</h2>
         <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <input onChange ={(e) => setUser({ ...user, email: e.target.value })} type="email" className="form-input" placeholder='Email Address'/>
+              <input onChange ={(e) => setUser({ ...user, email: e.target.value })} type="email" className="form-input" placeholder='Email Address' required/>
             </div>
             <div className="form-group">
-              <input onChange={(e) => setUser({ ...user, password: e.target.value })} type="password" className="form-input" placeholder='Password'/>
+              <input onChange={(e) => setUser({ ...user, password: e.target.value })} type="password" className="form-input" placeholder='Password' required/>
             </div>
             <button type='submit' className='form-btn'>Sign In</button>
         </form>

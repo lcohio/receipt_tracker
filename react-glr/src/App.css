@@ -20,8 +20,6 @@
 
 .buttons {
   display: flex;
-  width: 150px;
-  justify-content: space-around;
   align-items: center;
   padding: 5px;
 }
@@ -29,6 +27,13 @@
 .nav-btn {
   color: white;
   text-decoration: none;
+  cursor: pointer;
+  padding-right: 15px;
+}
+
+.nav-welcome {
+  color: white;
+  padding-right: 30px;
 }
 
 .sign-in,

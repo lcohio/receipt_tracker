@@ -1,6 +1,7 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 const AuthContext = createContext();
@@ -16,6 +17,7 @@ const AuthProvider = ({ children }) => {
                 document.cookie = `token=${res.data.token}`;
                 document.cookie = `ownerId=${res.data.user.id}`;
                 setUser(res.data);
+                localStorage.setItem('authUser', res.data.user.email);
                 navigate('/expenses');
                 return;
             }
@@ -28,8 +30,10 @@ const AuthProvider = ({ children }) => {
 
     const logout = () => {
         setUser(null);
-        localStorage.removeItem('user');
-        navigate("/");
+        Cookies.remove('token');
+        Cookies.remove('ownerId');
+        localStorage.removeItem('authUser');
+        navigate('/');
     }
 
     return (
