@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState('');
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState(null);
     const navigate = useNavigate();
     
     const loginAction = async (data) => {
@@ -26,10 +26,10 @@ const AuthProvider = ({ children }) => {
             Cookies.set('09fe6784ce100', encoded);
             setUser(res.data);
             navigate('/expenses');
+            setErrors(null);
         }
         catch(err) {
             setErrors(err);
-            console.error(err);
         }
     }
 

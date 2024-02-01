@@ -94,6 +94,10 @@
   font-size: 20px;
 }
 
+.login-warning {
+  text-align: center;
+}
+
 .expenses {
   margin: auto;
   width: 100%;

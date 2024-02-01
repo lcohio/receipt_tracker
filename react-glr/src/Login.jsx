@@ -8,7 +8,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     auth.loginAction(user);
-    return;
+    return; 
   }
 
   return (
@@ -20,6 +20,7 @@ const Login = () => {
             </div>
             <div className="form-group">
               <input onChange={(e) => setUser({ ...user, password: e.target.value })} type="password" className="form-input" placeholder='Password' required/>
+              {auth.errors && <p className='login-warning'>Check your email and password and try again.</p>}
             </div>
             <button type='submit' className='form-btn'>Sign In</button>
         </form>
