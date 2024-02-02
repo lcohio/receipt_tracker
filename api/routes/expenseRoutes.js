@@ -28,6 +28,23 @@ router.post('/expenses', authenticateUser, asyncHandler(async (req, res) => {
     }
 }));
 
+router.post('/expense/:id', authenticateUser, asyncHandler(async (req, res) => {
+    try {
+        const expense = await Expense.findOne({
+            where: {
+                id: req.params.id,
+                ownerId: res.locals.id
+            }
+        });
+        if (expense === null) {
+            res.status(403).json({ error: "User not authorized to view this page."})
+        }
+        res.status(200).json(expense);
+    } catch (err) {
+        next(err);
+    }
+}));
+
 router.patch('/expenses/:id', authenticateUser, asyncHandler(async (req, res) => {
     try {
         const [expense] = await Expense.findOne({
@@ -36,6 +53,24 @@ router.patch('/expenses/:id', authenticateUser, asyncHandler(async (req, res) =>
             }
         });
         console.log(expense);
+    } catch (err) {
+        next(err);
+    }
+}));
+
+router.delete('/expense/:id', authenticateUser, asyncHandler(async (req, res) => {
+    try {
+        const expense = await Expense.findOne({
+            where: {
+                id: req.params.id,
+                ownerId: res.locals.id
+            }
+        });
+        if (expense === null) {
+            res.status(403).json({ error: "User not authorized to delete this record."})
+        }
+        await expense.destroy();
+        res.status(200).end();
     } catch (err) {
         next(err);
     }

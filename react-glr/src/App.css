@@ -73,6 +73,12 @@
   font-size: 17px;
 }
 
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
 .form-btn {
   display: block;
   margin: auto;
