@@ -28,16 +28,16 @@ router.post('/expenses', authenticateUser, asyncHandler(async (req, res) => {
     }
 }));
 
-router.patch('/expenses/:id', asyncHandler(async (req, res) => {
+router.patch('/expenses/:id', authenticateUser, asyncHandler(async (req, res) => {
     try {
-        const [expense] = await Expense.findAll({
+        const [expense] = await Expense.findOne({
             where: {
                 id: req.params.id
             }
         });
         console.log(expense);
     } catch (err) {
-
+        next(err);
     }
 }));
 

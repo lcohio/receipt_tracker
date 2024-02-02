@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import AuthProvider from './context/AuthProvider';
 import CreateExpense from './CreateExpense';
+import EditExpense from './EditExpense';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route element={<PrivateRoute />}>
               <Route path='/expenses' element={<Expenses />}></Route>
               <Route path='/expenses/create' element={<CreateExpense />}></Route>
+              <Route path='/expenses/edit/:id' element={<EditExpense />}></Route>
             </Route>
           </Routes>
         </AuthProvider>

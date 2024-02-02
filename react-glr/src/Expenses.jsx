@@ -27,11 +27,16 @@ const Expenses = () => {
  
     return (
         <div className="expenses">
-            <Link to='/expenses/create' className="tile">Create New Expense</Link>
+            <Link to='/expenses/create' className="tile-create">Create New +</Link>
             {
                 data.map(item => {
                     return (
-                        <div className='tile' key={item.id}>{item.vendor}</div>
+                        <Link to={`/expenses/edit/${item.id}`} className='tile' key={item.id}>
+                            <p className='tile-item'>{item.vendor}</p>
+                            <p className='tile-item'>{item.description}</p>
+                            <p className='tile-item'>{item.location}</p>
+                            <p className='tile-item'>{item.amount}</p>
+                        </Link>
                     )
                 })
             }
