@@ -45,14 +45,19 @@ router.post('/expense/:id', authenticateUser, asyncHandler(async (req, res) => {
     }
 }));
 
-router.patch('/expenses/:id', authenticateUser, asyncHandler(async (req, res) => {
+router.patch('/expense/:id', authenticateUser, asyncHandler(async (req, res) => {
     try {
-        const [expense] = await Expense.findOne({
+        const expense = await Expense.findOne({
             where: {
-                id: req.params.id
+                id: req.params.id,
+                ownerId: res.locals.id
             }
         });
-        console.log(expense);
+        if (expense === null) {
+            res.status(403).json({ error: "User not authorized to change this record."})
+        }
+        const updated = await expense.update(req.body);
+        res.status(200).json(updated);
     } catch (err) {
         next(err);
     }

@@ -5,7 +5,6 @@ import Cookies from 'js-cookie';
 
 
 const EditExpense = () => {
-    const [newExpenseProps, setNewExpenseProps] = useState({ vendor: '', description: '', location: '', amount: '' });
     const [expenseProps, setExpenseProps] = useState([]);
     const navigate = useNavigate();
     const params = useParams();
@@ -18,18 +17,24 @@ const EditExpense = () => {
         }
     });
 
-    const handleDelete = async () => {
-        console.log('Delete Button Clicked');
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        try {
+            await authAxios.delete(`/expense/${params.id}`)
+                .then(navigate('/expenses'))
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await authAxios.post('/expense/create', newExpenseProps)
-            .then(res => console.log(res.data));
+            await authAxios.patch(`/expense/${params.id}`, expenseProps)
+                .then(res => console.log(res.data));
             navigate('/expenses');
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     }
 
@@ -51,16 +56,16 @@ const EditExpense = () => {
             <h2>Edit Expense</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <input onChange={(e) => setNewExpenseProps({...newExpenseProps, vendor: e.target.value})} type='text' placeholder={expenseProps.vendor} className='form-input' required />
+                    <input onChange={(e) => setExpenseProps({...expenseProps, vendor: e.target.value})} type='text' placeholder={expenseProps.vendor} className='form-input' />
                 </div>
                 <div className="form-group">
-                    <input onChange={(e) => setNewExpenseProps({...newExpenseProps, description: e.target.value})} type='text' placeholder={expenseProps.description} className='form-input' required />
+                    <input onChange={(e) => setExpenseProps({...expenseProps, description: e.target.value})} type='text' placeholder={expenseProps.description} className='form-input' />
                 </div>
                 <div className="form-group">
-                    <input onChange={(e) => setNewExpenseProps({...newExpenseProps, location: e.target.value})} type='text' placeholder={expenseProps.location} className='form-input' required />
+                    <input onChange={(e) => setExpenseProps({...expenseProps, location: e.target.value})} type='text' placeholder={expenseProps.location} className='form-input' />
                 </div>
                 <div className="form-group">
-                    <input onChange={(e) => setNewExpenseProps({...newExpenseProps, amount: e.target.value})} type='text' placeholder={expenseProps.amount} className='form-input' required />
+                    <input onChange={(e) => setExpenseProps({...expenseProps, amount: e.target.value})} type='text' placeholder={expenseProps.amount} className='form-input' />
                 </div>
                 <div className="form-buttons">
                     <button className='form-btn'>Save</button>

@@ -15,6 +15,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <h1>GLR, Inc</h1>
+      <NavLink to='/expenses' className='homelink'>Expenses</NavLink>
         { authenticatedUser ?
           <div className="buttons">
             <p className='nav-welcome'>Welcome, {authenticatedUser}!</p>
