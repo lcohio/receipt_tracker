@@ -20,13 +20,18 @@
 }
 
 .homelink {
-  color: #691515;
+  color: black;
   text-decoration: none;
   margin-left: 20px;
   padding: 5px;
   border-radius: 3px;
   font-weight: 600;
   background-color: lightblue;
+  transition: 0.15s;
+}
+
+.homelink:hover {
+  background-color: #DAEEF5;
 }
 
 .buttons {
@@ -37,7 +42,7 @@
 }
 
 .nav-btn {
-  color: #691515;
+  color: black;
   background-color: lightblue;
   text-decoration: none;
   cursor: pointer;
@@ -45,10 +50,15 @@
   padding: 5px;
   border-radius: 3px;
   font-weight: 600;
+  transition: 0.15s;
+}
+
+.nav-btn:hover {
+  background-color: #DAEEF5;
 }
 
 .nav-welcome {
-  color: lightblue;
+  color: white;
   margin-right: 15px;
   font-weight: 600;
 }
